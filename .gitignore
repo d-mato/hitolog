@@ -25,3 +25,5 @@
 /vendor/bundle
 
 .*.swp
+/public/packs
+/node_modules
