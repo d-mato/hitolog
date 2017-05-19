@@ -1,6 +1,6 @@
 FactoryGirl.define do
   factory :person do
-    name '山田 太郎'
-    sex :male
+    name { Faker::Name.name }
+    sex { [:male, :female].sample }
   end
 end

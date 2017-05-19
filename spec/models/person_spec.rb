@@ -29,7 +29,7 @@ describe Person do
       end
 
       it 'nameに値が入っていればvalid' do
-        person.name = '山田 太郎'
+        person.name = Faker::Name.name
         is_expected.to be true
       end
     end
