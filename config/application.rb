@@ -32,7 +32,6 @@ module Hitolog
         view_specs: false,
         routing_specs: false,
         helper_specs: false
-      g.fixture_replacement :factory_girl, dir: 'spec/factories'
     end
   end
 end

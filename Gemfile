@@ -52,7 +52,7 @@ gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
 
 ################################################################################
 
-group :deployment, :test do
+group :development, :test do
   gem 'factory_girl_rails'
   gem 'rspec-rails'
 end
