@@ -52,6 +52,9 @@ gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
 
 ################################################################################
 
+gem 'devise'
+gem 'omniauth-google-oauth2'
+
 gem 'pry-rails'
 
 group :development, :test do
