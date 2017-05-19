@@ -25,7 +25,14 @@ module Hitolog
     # Application configuration should go into files in config/initializers
     # -- all .rb files in that directory are automatically loaded.
 
-    # Don't generate system test files.
-    config.generators.system_tests = nil
+    config.generators do |g|
+      g.assets false
+      g.helper false
+      g.test_framework :rspec,
+        view_specs: false,
+        routing_specs: false,
+        helper_specs: false
+      g.fixture_replacement :factory_girl, dir: 'spec/factories'
+    end
   end
 end
