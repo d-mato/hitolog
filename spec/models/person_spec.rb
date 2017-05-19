@@ -33,5 +33,16 @@ describe Person do
         is_expected.to be true
       end
     end
+
+    describe 'user_id' do
+      it 'user_idがnilならinvalid' do
+        person.user = nil
+        is_expected.to be false
+      end
+      it 'user_idに値が入っていればvalid' do
+        person.user = FactoryGirl.create :user
+        is_expected.to be true
+      end
+    end
   end
 end
