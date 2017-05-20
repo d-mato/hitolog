@@ -14,7 +14,7 @@
     <p>{{ message }}</p>
 
     <div class="list-group">
-      <router-link :to="`/groups/${item.id}`" v-for="item in items" class="list-group-item list-group-item-action">{{ item.name }}</router-link>
+      <router-link v-for="item in items" :to="`/groups/${item.id}`" :key="item.id" class="list-group-item list-group-item-action">{{ item.name }}</router-link>
     </div>
   </div>
 </template>
