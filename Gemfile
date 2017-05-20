@@ -60,5 +60,6 @@ gem 'pry-rails'
 group :development, :test do
   gem 'factory_girl_rails'
   gem 'faker'
+  gem 'rails-controller-testing'
   gem 'rspec-rails'
 end
