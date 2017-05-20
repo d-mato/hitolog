@@ -10,13 +10,13 @@ describe Api::PeopleController do
 
   describe 'GET index' do
     it 'redirects if not signed in' do
-      get :index
-      expect(response).to redirect_to '/users/sign_in'
+      get :index, format: :json
+      expect(response.status).to eq 401
     end
 
     it 'assigns @people with my people' do
       sign_in user
-      get :index
+      get :index, format: :json
       expect(assigns(:people)).to eq people
     end
   end

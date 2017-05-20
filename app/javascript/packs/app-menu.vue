@@ -2,6 +2,7 @@
   <ul>
     <li><router-link to="/people">List</router-link></li>
     <li><router-link to="/people/new">New</router-link></li>
+    <li><router-link to="/groups">Group</router-link></li>
   </ul>
 </template>
 
