@@ -5,6 +5,9 @@
       <ul>
         <li>Name: {{ person.name }}</li>
         <li>Sex: {{ person.sex }}</li>
+        <li>Groups:
+          <label v-for="group in person.groups">{{ group.name }}</label>
+        </li>
         <li>Updated at: {{ person.updated_at }}</li>
       </ul>
 
@@ -26,6 +29,9 @@
             <option value="female">Female</option>
           </select>
         </div>
+        <div>
+          <label v-for="group in groups"><input type="checkbox" :value="group.id" v-model="group_ids">{{group.name}}</label>
+        </div>
         <input type="submit" value="save">
       </form>
 
@@ -42,14 +48,22 @@ export default {
   data: function () {
     return {
       edit_mode: false,
+      group_ids: [],
       person: {},
+      groups: [],
       message: ''
     }
   },
   created() {
+    axios.get('/api/groups')
+      .then((res) => {
+        this.groups = res.data
+      })
+
     axios.get(`/api/people/${this.$route.params.id}`)
       .then((res) => {
         this.person = res.data
+        this.group_ids = this.person.groups.map( (group) => group.id )
       })
       .catch((err) => {
         console.log(err)
@@ -57,8 +71,16 @@ export default {
   },
   methods: {
     save() {
-      axios.patch(`/api/people/${this.$route.params.id}`, this.person)
+      let params = {
+        person: {
+          name: this.person.name,
+          sex: this.person.sex,
+        },
+        group_ids: this.group_ids
+      }
+      axios.patch(`/api/people/${this.$route.params.id}`, params)
         .then((res) => {
+          this.person = res.data
           this.message = 'Success'
           this.edit_mode = false
         })

@@ -8,6 +8,7 @@
         Name: <input v-model="new_group.name">
         <input type="submit">
       </form>
+      <button @click="new_mode = false">Cancel</button>
     </template>
 
     <p>{{ message }}</p>

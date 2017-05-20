@@ -3,7 +3,7 @@ class Api::PeopleController < ApplicationController
   before_action :set_person, only: [:show, :update, :destroy]
 
   def index
-    @people = current_user.people
+    @people = current_user.people.includes(:groups)
   end
 
   def show
@@ -20,6 +20,9 @@ class Api::PeopleController < ApplicationController
 
   def update
     return head :bad_request unless @person.update(person_params)
+    group_ids = current_user.groups.where(id: params[:group_ids]).pluck(:id)
+    @person.update(group_ids: group_ids)
+    render action: :show
   end
 
   def destroy
