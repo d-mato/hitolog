@@ -6,18 +6,16 @@
     <template v-if="new_mode">
       <form @submit.prevent="submit">
         Name: <input class="form-control" v-model="new_group.name">
-        <input type="submit" class="btn btn-primary">
+        <input type="submit" class="btn btn-primary" value="Submit">
+        <input type="reset" class="btn btn-default" @click="new_mode = false" value="Cancel">
       </form>
-      <button class="btn btn-default" @click="new_mode = false">Cancel</button>
     </template>
 
     <p>{{ message }}</p>
 
-    <ul>
-      <li v-for="item in items">
-        <router-link :to="`/groups/${item.id}`">{{ item.name }}</router-link>
-      </li>
-    </ul>
+    <div class="list-group">
+      <router-link :to="`/groups/${item.id}`" v-for="item in items" class="list-group-item list-group-item-action">{{ item.name }}</router-link>
+    </div>
   </div>
 </template>
 

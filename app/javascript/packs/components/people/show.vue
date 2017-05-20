@@ -20,23 +20,27 @@
     <template v-if="edit_mode">
       <form @submit.prevent="save">
         <div>
-          Name: <input v-model="person.name">
+          Name: <input v-model="person.name" class="form-control">
         </div>
         <div>
           Sex:
-          <select v-model="person.sex">
+          <select v-model="person.sex" class="form-control">
             <option value=""></option>
             <option value="male">Male</option>
             <option value="female">Female</option>
           </select>
         </div>
         <div>
-          <label v-for="group in groups"><input type="checkbox" :value="group.id" v-model="group_ids">{{group.name}}</label>
+          <div v-for="group in groups" class="form-check form-check-inline">
+            <label class="form-check-label">
+              <input type="checkbox" :value="group.id" v-model="group_ids" class="form-check-input">{{group.name}}
+            </label>
+          </div>
         </div>
-        <input type="submit" value="save" class="btn btn-primary">
+        <input type="submit" value="Save" class="btn btn-primary">
+        <input @click="edit_mode = false" type="reset" value="Cancel" class="btn btn-default">
       </form>
 
-      <button @click="edit_mode = false" class="btn btn-default">Cancel</button>
     </template>
 
     <p>{{ message }}</p>

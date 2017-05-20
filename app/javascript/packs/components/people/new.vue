@@ -3,7 +3,7 @@
     <h2>New Person</h2>
     <form @submit.prevent="submit">
       Name: <input class="form-control" v-model="name">
-      <input type="submit" class="btn btn-primary">
+      <input type="submit" class="btn btn-primary" value="Submit">
     </form>
     <p>{{ message }}</p>
   </div>

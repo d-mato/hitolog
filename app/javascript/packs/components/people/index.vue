@@ -7,11 +7,20 @@
       <li class="list-inline-item" v-for="group in groups" v-bind:class="{ active: selected_group_id == group.id}"><a href="#" @click.prevent="selected_group_id = group.id">{{ group.name }}</a></li>
     </ul>
 
-    <ul>
-      <li v-for="person in filter">
-        <router-link :to="`/people/${person.id}`">{{ person.name }}</router-link>
-      </li>
-    </ul>
+    <table class="table table-hover">
+      <thead>
+        <tr>
+          <th>Name</th><th>Sex</th><th>Groups</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr v-for="person in filter">
+          <td><router-link :to="`/people/${person.id}`">{{ person.name }}</router-link></td>
+          <td>{{ person.sex }}</td>
+          <td><span class="badge badge-default" v-for="group in person.groups">{{ group.name }}</span></td>
+        </tr>
+      </tbody>
+    </table>
   </div>
 </template>
 
