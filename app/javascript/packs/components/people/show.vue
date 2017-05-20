@@ -14,7 +14,7 @@
 
     <template v-if="edit_mode">
       edit
-      <form @submit="save">
+      <form @submit.prevent="save">
         <div>
           Name: <input v-model="person.name">
         </div>

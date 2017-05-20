@@ -4,11 +4,9 @@ class Api::PeopleController < ApplicationController
 
   def index
     @people = current_user.people
-    render json: @people
   end
 
   def show
-    render json: @person
   end
 
   def create
@@ -21,19 +19,11 @@ class Api::PeopleController < ApplicationController
   end
 
   def update
-    if @person.update(person_params)
-      render json: @person
-    else
-      head :bad_request
-    end
+    return head :bad_request unless @person.update(person_params)
   end
 
   def destroy
-    if @person.destroy
-      render json: @person
-    else
-      head :bad_request
-    end
+    return head :bad_request unless @person.destroy
   end
 
   private
