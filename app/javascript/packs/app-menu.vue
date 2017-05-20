@@ -1,27 +1,23 @@
 <template>
-  <div>
-    <p>{{ message }}</p>
-    <app-menu></app-menu>
-    <router-view></router-view>
-  </div>
+  <ul>
+    <li><router-link to="/people">List</router-link></li>
+    <li><router-link to="/people/new">New</router-link></li>
+  </ul>
 </template>
 
 <script>
-import AppMenu from './app-menu'
-
 export default {
   data: function () {
     return {
       message: "Hello Vue!"
     }
-  },
-  components: { AppMenu }
+  }
 }
 </script>
 
 <style scoped>
-p {
+/*p {
   font-size: 2em;
   text-align: center;
-}
+}*/
 </style>
