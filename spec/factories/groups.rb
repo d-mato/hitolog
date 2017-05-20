@@ -1,6 +1,6 @@
 FactoryGirl.define do
   factory :group do
-    name "MyString"
-    user nil
+    name { Faker::Team.name }
+    user
   end
 end
