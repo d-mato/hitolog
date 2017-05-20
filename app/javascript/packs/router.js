@@ -1,13 +1,15 @@
 import Vue from 'vue/dist/vue.esm'
 import Router from 'vue-router/dist/vue-router.esm'
-import People from './people.vue'
-import NewPerson from './new-person.vue'
+import Index from './components/people/index'
+import New from './components/people/new'
+import Show from './components/people/show'
 
 Vue.use(Router)
 
 export default new Router({
   routes: [
-    { path: '/people', component: People },
-    { path: '/people/new', component: NewPerson },
+    { path: '/people', component: Index },
+    { path: '/people/new', component: New },
+    { path: '/people/:id', component: Show },
   ]
 })
