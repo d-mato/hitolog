@@ -63,3 +63,5 @@ group :development, :test do
   gem 'rails-controller-testing'
   gem 'rspec-rails'
 end
+
+gem 'bootstrap', '~> 4.0.0.alpha6'
