@@ -2,21 +2,22 @@
   <div>
     <h2>Person Detail</h2>
     <template v-if="!edit_mode">
+      <a href="#" @click.prevent="$router.go(-1)">back</a>
       <ul>
         <li>Name: {{ person.name }}</li>
         <li>Sex: {{ person.sex }}</li>
         <li>Groups:
-          <label v-for="group in person.groups">{{ group.name }}</label>
+          <span class="badge badge-default" v-for="group in person.groups">{{ group.name }}</span>
+
         </li>
         <li>Updated at: {{ person.updated_at }}</li>
       </ul>
 
-      <button @click="edit_mode = true">edit</button>
-      <button @click="del">del</button>
+      <button class="btn btn-primary" @click="edit_mode = true">edit</button>
+      <button class="btn btn-danger" @click="del">del</button>
     </template>
 
     <template v-if="edit_mode">
-      edit
       <form @submit.prevent="save">
         <div>
           Name: <input v-model="person.name">
@@ -32,10 +33,10 @@
         <div>
           <label v-for="group in groups"><input type="checkbox" :value="group.id" v-model="group_ids">{{group.name}}</label>
         </div>
-        <input type="submit" value="save">
+        <input type="submit" value="save" class="btn btn-primary">
       </form>
 
-      <button @click="edit_mode = false">Cancel</button>
+      <button @click="edit_mode = false" class="btn btn-default">Cancel</button>
     </template>
 
     <p>{{ message }}</p>

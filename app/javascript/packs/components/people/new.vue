@@ -2,8 +2,8 @@
   <div>
     <h2>New Person</h2>
     <form @submit.prevent="submit">
-      Name: <input v-model="name">
-      <input type="submit">
+      Name: <input class="form-control" v-model="name">
+      <input type="submit" class="btn btn-primary">
     </form>
     <p>{{ message }}</p>
   </div>

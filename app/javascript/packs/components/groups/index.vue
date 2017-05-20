@@ -2,13 +2,13 @@
   <div>
     <h2>Group List</h2>
 
-    <button @click="new_mode = true">New</button>
+    <button class="btn btn-primary" v-if="!new_mode" @click="new_mode = true">New</button>
     <template v-if="new_mode">
       <form @submit.prevent="submit">
-        Name: <input v-model="new_group.name">
-        <input type="submit">
+        Name: <input class="form-control" v-model="new_group.name">
+        <input type="submit" class="btn btn-primary">
       </form>
-      <button @click="new_mode = false">Cancel</button>
+      <button class="btn btn-default" @click="new_mode = false">Cancel</button>
     </template>
 
     <p>{{ message }}</p>
