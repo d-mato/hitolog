@@ -33,5 +33,7 @@ module Hitolog
         routing_specs: false,
         helper_specs: false
     end
+
+    config.time_zone = 'Tokyo'
   end
 end
