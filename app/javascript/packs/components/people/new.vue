@@ -4,6 +4,7 @@
     <form @submit.prevent="submit">
       Name: <input class="form-control" v-model="name">
       <input type="submit" class="btn btn-primary" value="Submit">
+      <input @click="$emit('close')" type="reset" class="btn btn-default" value="Cancel">
     </form>
     <p>{{ message }}</p>
   </div>
@@ -38,4 +39,5 @@ export default {
 </script>
 
 <style scoped>
+
 </style>

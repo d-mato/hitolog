@@ -21,17 +21,23 @@
         </tr>
       </tbody>
     </table>
+
+    <button @click="show_new_person = !show_new_person" class="btn btn-primary btn-new-person">New</button>
+    <new-person v-if="show_new_person" v-bind:style="new_person_style" v-on:close="show_new_person = false" class="new-person-modal"></new-person>
   </div>
 </template>
 
 <script>
 import axios from '../../axios'
+import NewPerson from './new'
 export default {
+  components: { NewPerson },
   data: function () {
     return {
       people: [],
       groups: [],
-      selected_group_id: null
+      selected_group_id: null,
+      show_new_person: false,
     }
   },
   created() {
@@ -77,4 +83,19 @@ ul.list-inline {
     text-decoration: none;
   }
 }
+.btn-new-person {
+  position: fixed;
+  bottom: 25px;
+  right: 25px;
+}
+.new-person-modal {
+  position: fixed;
+  top: 20vh;
+  left: 5%;
+  width: 90%;
+  background: #fff;
+  padding: 1em;
+  box-shadow: 2px 2px 10px 1px;
+}
+
 </style>
