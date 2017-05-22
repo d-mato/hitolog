@@ -1,8 +1,7 @@
 <template>
-  <ul>
-    <li><router-link to="/people">List</router-link></li>
-    <li><router-link to="/people/new">New</router-link></li>
-    <li><router-link to="/groups">Group</router-link></li>
+  <ul class="list-inline">
+    <li class="list-inline-item"><router-link to="/people">People</router-link></li>
+    <li class="list-inline-item"><router-link to="/groups">Group</router-link></li>
   </ul>
 </template>
 
@@ -17,8 +16,4 @@ export default {
 </script>
 
 <style scoped>
-/*p {
-  font-size: 2em;
-  text-align: center;
-}*/
 </style>

@@ -1,6 +1,5 @@
 <template>
   <div>
-    <p>{{ message }}</p>
     <app-menu></app-menu>
     <router-view></router-view>
   </div>
@@ -12,15 +11,14 @@ import AppMenu from './app-menu'
 export default {
   data: function () {
     return {
-      message: "Hello Vue!"
     }
   },
   components: { AppMenu }
 }
 </script>
 
-<style scoped>
-p {
+<style>
+h2 {
   font-size: 2em;
   text-align: center;
 }
