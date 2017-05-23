@@ -27,6 +27,7 @@ export default {
         .then((res) => {
           this.message = 'Success!'
           this.name = ''
+          this.$emit('created')
           this.$router.push(`/people/${res.data.id}`)
         })
         .catch((err) => {

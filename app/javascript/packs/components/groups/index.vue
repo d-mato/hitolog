@@ -1,6 +1,7 @@
 <template>
   <div>
-    <h2>Group List</h2>
+    <tool-bar title="Group List"></tool-bar>
+    <div style="margin-top: 60px"></div>
 
     <button class="btn btn-primary" v-if="!new_mode" @click="new_mode = true">New</button>
     <template v-if="new_mode">
@@ -21,7 +22,10 @@
 
 <script>
 import axios from '../../axios'
+import ToolBar from '../toolbar'
+
 export default {
+  components: { ToolBar },
   data: function () {
     return {
       new_mode: false,
@@ -45,6 +49,7 @@ export default {
           this.items.push(res.data)
           this.new_group = {}
           this.new_mode = false
+          this.$ons.notification.alert('Created!')
         })
         .catch((err) => {
           console.log(err)

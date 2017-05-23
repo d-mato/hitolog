@@ -1,11 +1,13 @@
 <template>
   <div>
-    <h2>People List</h2>
-    Groups:
-    <ul class="list-inline">
-      <li class="list-inline-item" v-bind:class="{ active: selected_group_id == null}"><a href="#" @click.prevent="selected_group_id = null">All</a></li>
-      <li class="list-inline-item" v-for="group in used_groups" v-bind:class="{ active: selected_group_id == group.id}"><a href="#" @click.prevent="selected_group_id = group.id">{{ group.name }}</a></li>
-    </ul>
+    <tool-bar title="People List"></tool-bar>
+    <div style="margin-top: 60px">
+      Groups:
+      <ul class="list-inline">
+        <li class="list-inline-item" v-bind:class="{ active: selected_group_id == null}"><a href="#" @click.prevent="selected_group_id = null">All</a></li>
+        <li class="list-inline-item" v-for="group in used_groups" v-bind:class="{ active: selected_group_id == group.id}"><a href="#" @click.prevent="selected_group_id = group.id">{{ group.name }}</a></li>
+      </ul>
+    </div>
 
     <table class="table table-hover">
       <thead>
@@ -23,15 +25,17 @@
     </table>
 
     <button @click="show_new_person = !show_new_person" class="btn btn-primary btn-new-person">New</button>
-    <new-person v-if="show_new_person" v-bind:style="new_person_style" v-on:close="show_new_person = false" class="new-person-modal"></new-person>
+    <new-person v-if="show_new_person" v-on:close="show_new_person = false" v-on:created="$ons.notification.alert('Hello World!')" class="new-person-modal"></new-person>
   </div>
 </template>
 
 <script>
 import axios from '../../axios'
 import NewPerson from './new'
+import ToolBar from '../toolbar'
+
 export default {
-  components: { NewPerson },
+  components: { NewPerson, ToolBar },
   data: function () {
     return {
       people: [],
