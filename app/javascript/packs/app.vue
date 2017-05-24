@@ -9,9 +9,9 @@
           <div class="center">Menu</div>
         </v-ons-toolbar>
         <v-ons-list>
-          <v-ons-list-item v-for="page in pages"
+          <v-ons-list-item v-for="page, index in pages" :key="index"
             tappable modifier="chevron"
-            @click="openSide = false; $router.push({ name: page })"
+            @click="openSide = false; currentPage = page"
           >
             <div class="center">{{ page }}</div>
           </v-ons-list-item>
@@ -20,26 +20,26 @@
     </v-ons-splitter-side>
 
     <v-ons-splitter-content>
-      <router-view></router-view>
+      <component :is="currentPage" :toggle-menu="() => openSide = !openSide"></component>
     </v-ons-splitter-content>
   </v-ons-splitter>
 </template>
 
 <script>
 import AppMenu from './app-menu'
-import PeopleIndex from './components/people/index'
-import GroupsIndex from './components/groups/index'
+import People from './components/people/index'
+import Groups from './components/groups/index'
 
 export default {
-  components: { PeopleIndex, GroupsIndex },
+  components: { AppMenu, People, Groups },
   data() {
     return {
       title: '',
-      pages: ['PeopleIndex', 'GroupsIndex'],
+      pages: ['People', 'Groups'],
       openSide: false,
+      currentPage: 'People',
     }
   },
-  components: { AppMenu }
 }
 </script>
 

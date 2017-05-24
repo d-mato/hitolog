@@ -1,8 +1,8 @@
 <template>
-  <div>
-    <h2>Person Detail</h2>
-    <template v-if="!edit_mode">
-      <a href="#" @click.prevent="$router.go(-1)">back</a>
+  <v-ons-page>
+    <tool-bar :back="true">Person Detail</tool-bar>
+
+    <div v-show="!edit_mode">
       <ul>
         <li>Name: {{ person.name }}</li>
         <li>Sex: {{ person.sex }}</li>
@@ -15,9 +15,9 @@
 
       <button class="btn btn-primary" @click="edit_mode = true">edit</button>
       <button class="btn btn-danger" @click="del">del</button>
-    </template>
+    </div>
 
-    <template v-if="edit_mode">
+    <div v-show="edit_mode">
       <form @submit.prevent="save">
         <div>
           Name: <input v-model="person.name" class="form-control">
@@ -41,15 +41,19 @@
         <input @click="edit_mode = false" type="reset" value="Cancel" class="btn btn-default">
       </form>
 
-    </template>
+    </div>
 
     <p>{{ message }}</p>
-  </div>
+  </v-ons-page>
 </template>
 
 <script>
 import axios from '../../axios'
+import ToolBar from '../toolbar'
+
 export default {
+  props: ['options', 'toggle-menu', 'page-stack', 'reload-people'],
+  components: { ToolBar },
   data: function () {
     return {
       edit_mode: false,
@@ -65,12 +69,13 @@ export default {
         this.groups = res.data
       })
 
-    axios.get(`/api/people/${this.$route.params.id}`)
+    axios.get(`/api/people/${this.options.person_id}`)
       .then((res) => {
         this.person = res.data
         this.group_ids = this.person.groups.map( (group) => group.id )
       })
       .catch((err) => {
+        this.$ons.notification.toast('Error!', { timeout: 1500 })
         console.log(err)
       })
   },
@@ -83,27 +88,28 @@ export default {
         },
         group_ids: this.group_ids
       }
-      axios.patch(`/api/people/${this.$route.params.id}`, params)
+      axios.patch(`/api/people/${this.options.person_id}`, params)
         .then((res) => {
           this.person = res.data
-          this.message = 'Success'
+          this.$ons.notification.toast('Updated!', { timeout: 1500 })
           this.edit_mode = false
         })
         .catch((err) => {
-          this.message = 'Error'
+          this.$ons.notification.toast('Error!', { timeout: 1500 })
           console.log(err)
         })
     },
 
     del() {
       if (confirm('Are you sure?')) {
-        axios.delete(`/api/people/${this.$route.params.id}`)
+        axios.delete(`/api/people/${this.options.person_id}`)
           .then((res) => {
-            this.message = 'Success'
-            this.$router.push('/people')
+            this.$ons.notification.toast('Deleted!', { timeout: 1500 })
+            this.reloadPeople()
+            this.pageStack.pop()
           })
           .catch((err) => {
-            this.message = 'Error'
+            this.$ons.notification.toast('Error!', { timeout: 1500 })
             console.log(err)
           })
       }
