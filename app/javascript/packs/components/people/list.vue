@@ -32,16 +32,13 @@ import ShowPerson from './show'
 import ToolBar from '../toolbar'
 
 export default {
-  props: ['options', 'toggle-menu', 'page-stack', 'reload-people'],
+  props: ['options', 'toggle-menu', 'page-stack'],
   components: { ShowPerson, ToolBar },
   data: function () {
     return {
       groups: [],
       selected_group_id: null,
     }
-  },
-  created() {
-    this.reloadPeople()
   },
   computed: {
     filtered_people() {
@@ -55,6 +52,7 @@ export default {
     used_groups() {
       let unique_ids = []
       return this.options.people.reduce((prev, person) => {
+        if (!person.groups) return prev
         let uniq = person.groups.filter((group) => {
           if (unique_ids.includes(group.id)) {
             return false
@@ -73,10 +71,11 @@ export default {
         .then((name) => this.submit(name))
     },
     submit(name) {
+      if (name == '') return false
       axios.post('/api/people', { name })
         .then((res) => {
           this.$ons.notification.toast('Created!', { timeout: 1500 })
-          this.reloadPeople()
+          this.options.people.push(res.data)
           this.options.person_id = res.data.id
           this.pageStack.push(ShowPerson)
         })

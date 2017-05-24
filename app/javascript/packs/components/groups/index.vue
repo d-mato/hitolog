@@ -34,6 +34,7 @@ export default {
         .then((name) => this.submit(name))
     },
     submit(name) {
+      if (name == '') return false
       axios.post('/api/groups', { name })
         .then((res) => {
           this.items.push(res.data)

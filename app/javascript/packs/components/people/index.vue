@@ -1,7 +1,7 @@
 <template>
   <v-on-page>
     <v-ons-navigator :page-stack="pageStack">
-      <component :is="page" v-for="page, index in pageStack" :key="index" :page-stack="pageStack" :toggle-menu="toggleMenu" :options="options" :reload-people="get_index"></component>
+      <component :is="page" v-for="page, index in pageStack" :key="index" :page-stack="pageStack" :toggle-menu="toggleMenu" :options="options"></component>
     </v-ons-navigator>
   </v-on-page>
 </template>
@@ -22,8 +22,9 @@ export default {
       },
     }
   },
+  created() { this.fetch_people() },
   methods: {
-    get_index() {
+    fetch_people() {
       axios.get('/api/people')
         .then((res) => {
           this.options.people = res.data

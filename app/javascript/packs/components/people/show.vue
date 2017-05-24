@@ -52,7 +52,7 @@ import axios from '../../axios'
 import ToolBar from '../toolbar'
 
 export default {
-  props: ['options', 'toggle-menu', 'page-stack', 'reload-people'],
+  props: ['options', 'toggle-menu', 'page-stack'],
   components: { ToolBar },
   data: function () {
     return {
@@ -93,6 +93,9 @@ export default {
           this.person = res.data
           this.$ons.notification.toast('Updated!', { timeout: 1500 })
           this.edit_mode = false
+          this.options.people = this.options.people.map((person) => {
+            return (person.id == res.data.id) ? res.data : person
+          })
         })
         .catch((err) => {
           this.$ons.notification.toast('Error!', { timeout: 1500 })
@@ -105,7 +108,9 @@ export default {
         axios.delete(`/api/people/${this.options.person_id}`)
           .then((res) => {
             this.$ons.notification.toast('Deleted!', { timeout: 1500 })
-            this.reloadPeople()
+            this.options.people = this.options.people.filter((person) => {
+              return person.id != this.options.person_id
+            })
             this.pageStack.pop()
           })
           .catch((err) => {
