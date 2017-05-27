@@ -3,6 +3,7 @@ class User < ApplicationRecord
 
   has_many :groups
   has_many :people
+  has_many :social_profiles
 
   # 与えられたSocialProfileからUserを新規作成し、関連付けを行う
   # 作成に失敗したらnilを返す
