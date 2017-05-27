@@ -40,7 +40,7 @@ describe SocialProfile do
 
   describe '#oauth_data=' do
     let(:auth) { FactoryGirl.build :omniauth_auth }
-    before { p auth; social_profile.oauth_data = auth }
+    before { social_profile.oauth_data = auth }
 
     it { is_expected.to have_attributes(name: auth['info']['name'], nickname: auth['info']['nickname'], email: auth['info']['email'], image_url: auth['info']['image']) }
   end

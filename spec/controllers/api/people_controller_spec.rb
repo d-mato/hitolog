@@ -13,7 +13,7 @@ describe Api::PeopleController do
 
     it 'redirects if not signed in' do
       get :index, format: :json
-      expect(response.status).to eq 401
+      expect(response).to redirect_to sign_in_path
     end
 
     it 'assigns @people with my people' do

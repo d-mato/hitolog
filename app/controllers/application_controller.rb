@@ -7,7 +7,7 @@ class ApplicationController < ActionController::Base
     if signed_in?
       super
     else
-      redirect_to sign_in_path, status: 401
+      redirect_to sign_in_path
     end
   end
 end
