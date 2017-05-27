@@ -1,6 +1,7 @@
 Rails.application.routes.draw do
   root 'home#index'
-  devise_for :users
+  get 'sign_in' => 'home#sign_in'
+  devise_for :users, controllers: { omniauth_callbacks: 'users/omniauth_callbacks' }
 
   namespace :api, format: 'json' do
     resources :groups

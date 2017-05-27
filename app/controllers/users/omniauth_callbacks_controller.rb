@@ -31,14 +31,7 @@ class Users::OmniauthCallbacksController < Devise::OmniauthCallbacksController
 
     # Userの作成に失敗
     unless user
-      msg = 'ユーザーの作成に失敗しました。'
-      # Emailが登録済みの場合
-      if (existing_user = User.find_by(email: profile.email))
-        msg += "#{profile.email}は#{existing_user.social_profiles.first.provider}アカウントで使われています。#{existing_user.social_profiles.first.provider}で再ログインしてみてください。"
-      else
-        msg += 'お手数ですが管理者までお問い合わせください。'
-      end
-      return redirect_to root_path, flash: { warning: msg }
+      return redirect_to sign_in_path, flash: { warning: 'ユーザーの作成に失敗しました。お手数ですが管理者までお問い合わせください。' }
     end
 
     sign_in user

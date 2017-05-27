@@ -1,6 +1,8 @@
 class HomeController < ApplicationController
-  before_action :authenticate_user!
-
   def index
+    authenticate_user!
+  end
+
+  def sign_in
   end
 end
