@@ -58,5 +58,14 @@ describe Api::PeopleController do
       patch :update, format: :json, params: params
       expect(person.reload.group_ids).not_to include other_group_id
     end
+
+    describe 'response' do
+      before { patch :update, format: :json, params: params }
+      subject { JSON.parse(response.body).with_indifferent_access }
+
+      it { is_expected.to include(name: params[:person][:name]) }
+      it { is_expected.to include(sex: params[:person][:sex]) }
+      it { is_expected.to include(encountered_at: params[:person][:encountered_at]) }
+    end
   end
 end
