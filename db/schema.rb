@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170527011952) do
+ActiveRecord::Schema.define(version: 20170527121555) do
 
   create_table "group_people", force: :cascade do |t|
     t.integer "group_id"
@@ -37,6 +37,20 @@ ActiveRecord::Schema.define(version: 20170527011952) do
     t.integer "user_id"
     t.datetime "encountered_at"
     t.index ["user_id"], name: "index_people_on_user_id"
+  end
+
+  create_table "social_profiles", force: :cascade do |t|
+    t.integer "user_id"
+    t.string "provider"
+    t.string "uid"
+    t.string "name"
+    t.string "nickname"
+    t.string "email"
+    t.string "image_url"
+    t.text "raw_info"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["user_id"], name: "index_social_profiles_on_user_id"
   end
 
   create_table "users", force: :cascade do |t|
