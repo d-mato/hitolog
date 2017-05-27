@@ -6,6 +6,7 @@
       <ul>
         <li>Name: {{ person.name }}</li>
         <li>Sex: {{ person.sex }}</li>
+        <li>Encountered at: {{ person.encountered_at }}</li>
         <li>Groups:
           <span class="badge badge-default" v-for="group in person.groups">{{ group.name }}</span>
 
@@ -29,6 +30,10 @@
             <option value="male">Male</option>
             <option value="female">Female</option>
           </select>
+        </div>
+        <div>
+          Encountered at:
+          <input type="datetime-local" v-model="person.encountered_at" class="form-control">
         </div>
         <div>
           <div v-for="group in groups" class="form-check form-check-inline">
@@ -82,10 +87,7 @@ export default {
   methods: {
     save() {
       let params = {
-        person: {
-          name: this.person.name,
-          sex: this.person.sex,
-        },
+        person: this.person,
         group_ids: this.group_ids
       }
       axios.patch(`/api/people/${this.options.person_id}`, params)

@@ -36,6 +36,6 @@ class Api::PeopleController < ApplicationController
   end
 
   def person_params
-    params.require(:person).permit(:name, :sex)
+    params.require(:person).permit(:name, :sex, :encountered_at)
   end
 end

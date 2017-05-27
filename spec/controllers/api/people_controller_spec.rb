@@ -1,6 +1,7 @@
 require 'rails_helper'
 
 describe Api::PeopleController do
+  render_views
   let!(:user) { FactoryGirl.create :user }
 
   describe 'GET index' do
@@ -28,17 +29,21 @@ describe Api::PeopleController do
     let(:params) do
       {
         id: person.id,
-        person: {
-          name: Faker::Team.name
-        },
+        person: FactoryGirl.attributes_for(:person),
         group_ids: groups.sample(3).map(&:id)
       }
     end
     before { sign_in user }
 
-    it 'can change person name' do
-      patch :update, format: :json, params: params
-      expect(person.reload.name).to eq params[:person][:name]
+    describe 'person.reload' do
+      before { patch :update, format: :json, params: params }
+      subject { person.reload }
+
+      it { is_expected.to have_attributes(name: params[:person][:name]) }
+
+      it { is_expected.to have_attributes(sex: params[:person][:sex]) }
+
+      it { is_expected.to have_attributes(encountered_at: params[:person][:encountered_at]) }
     end
 
     it "can change person's groups" do
