@@ -10,6 +10,7 @@
   </head>
 
   <body>
-    <%= javascript_pack_tag 'application' %>
-</body>
+    <%= yield %>
+    <%= javascript_pack_tag 'application' unless controller.class.parent == Devise %>
+  </body>
 </html>
