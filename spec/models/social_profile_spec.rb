@@ -2,9 +2,9 @@ require 'rails_helper'
 
 describe SocialProfile do
   let(:social_profile) { FactoryGirl.build :social_profile }
-  describe 'validation' do
-    subject { social_profile }
+  subject { social_profile }
 
+  describe 'validation' do
     context 'provider is blank' do
       it do
         subject.provider = nil
@@ -39,22 +39,21 @@ describe SocialProfile do
   end
 
   describe '#oauth_data=' do
-    let(:auth) do
-      {
-        'info' => {
-          'name' => Faker::Internet.user_name,
-          'nickname' => Faker::Name.name,
-          'email' => Faker::Internet.email,
-          'info' => Faker::Internet.url,
-        },
-        'extra' => {
-          'raw_info' => ''
-        }
-      }
-    end
-    before { social_profile.oauth_data = auth }
-    subject { social_profile }
+    let(:auth) { FactoryGirl.build :omniauth_auth }
+    before { p auth; social_profile.oauth_data = auth }
 
-    it { is_expected.to have_attributes(name: auth['info']['name'], nickname: auth['info']['nickname'], email: auth['info']['email'], image_url: auth['info']['image_url']) }
+    it { is_expected.to have_attributes(name: auth['info']['name'], nickname: auth['info']['nickname'], email: auth['info']['email'], image_url: auth['info']['image']) }
+  end
+
+  describe 'belongs_to user' do
+    let(:user) { FactoryGirl.create :user }
+    it '#userがUserインスタンスであること' do
+      subject.user_id = user.id
+      is_expected.to have_attributes(user: user)
+    end
+    it '#user_idがnilなら#userはnil' do
+      subject.user_id = nil
+      is_expected.to have_attributes(user: nil)
+    end
   end
 end
