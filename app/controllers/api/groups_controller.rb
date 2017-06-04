@@ -20,6 +20,7 @@ class Api::GroupsController < ApplicationController
 
   def update
     return head :bad_request unless @group.update(group_params)
+    render action: :show
   end
 
   def destroy

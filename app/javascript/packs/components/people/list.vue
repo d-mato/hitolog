@@ -67,11 +67,12 @@ export default {
   },
   methods: {
     show_dialog() {
-      this.$ons.notification.prompt("Input name")
-        .then((name) => this.submit(name))
+      this.$ons.notification.prompt("Input name", {cancelable: true})
+        .then((name) => {
+          if (name) this.submit(name)
+        })
     },
     submit(name) {
-      if (name == '') return false
       axios.post('/api/people', { name })
         .then((res) => {
           this.$ons.notification.toast('Created!', { timeout: 1500 })
