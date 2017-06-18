@@ -48,15 +48,21 @@
 
     </div>
     <ul>
-      <li v-for="impression in person.impressions" :key="impression.id">
+      <li v-for="impression in person.impressions" :key="impression.id" @click="delete_impression(impression)">
         {{ impression.date }}
         {{ impression.comment }}
       </li>
     </ul>
 
-    <input type="date" placeholder="Date" v-model="new_impression.date" />
-    <input placeholder="Comment" v-model="new_impression.comment" />
-    <button class="btn btn-primary" @click="add_impression">save</button>
+    <v-ons-list>
+      <v-ons-list-item>
+        <input type="date" placeholder="Date" v-model="new_impression.date" class="text-input" />
+      </v-ons-list-item>
+      <v-ons-list-item>
+        <textarea placeholder="Comment" v-model="new_impression.comment" class="textarea" rows="3" /></textarea>
+      </v-ons-list-item>
+    </v-ons-list>
+    <v-ons-button @click="add_impression">save</v-ons-button>
   </v-ons-page>
 </template>
 
@@ -73,7 +79,7 @@ export default {
       group_ids: [],
       person: {},
       groups: [],
-      new_impression: {}
+      new_impression: { date: new Date(), comment: '' }
     }
   },
   created() {
@@ -132,9 +138,23 @@ export default {
     add_impression(e) {
       axios.post(`/api/people/${this.options.person_id}/impressions`, this.new_impression)
         .then((res) => {
-          this.new_impression = {}
+          this.new_impression = { date: new Date(), comment: '' }
           this.person.impressions.push(res.data)
           this.$ons.notification.toast('Created!', { timeout: 1500 })
+        })
+        .catch((err) => {
+          this.$ons.notification.toast('Error!', { timeout: 1500 })
+          console.log(err)
+        })
+    },
+    delete_impression(impression) {
+      if (!confirm(`Are you sure to delete "${impression.comment}"`)) return false
+      axios.delete(`/api/impressions/${impression.id}`)
+        .then((res) => {
+          const index = this.person.impressions.indexOf(impression)
+          this.person.impressions.splice(index, 1)
+          this.person.impressions.$remove(impression)
+          this.$ons.notification.toast('Deleted!', { timeout: 1500 })
         })
         .catch((err) => {
           this.$ons.notification.toast('Error!', { timeout: 1500 })
@@ -146,4 +166,7 @@ export default {
 </script>
 
 <style scoped>
+  textarea {
+    width: 100%;
+  }
 </style>
