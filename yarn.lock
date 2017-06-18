@@ -2,9 +2,9 @@
 # yarn lockfile v1
 
 
-"@webcomponents/custom-elements@github:onsenui/custom-elements#1.0.0-rc.3+mod.20170410.1":
+"@webcomponents/custom-elements@OnsenUI/custom-elements#1.0.0-rc.3+mod.20170410.1":
   version "1.0.0-rc.3+mod.20170410.1"
-  resolved "https://codeload.github.com/onsenui/custom-elements/tar.gz/bf2f0a4aee940223cfa7eb18e29bd1da51edb90f"
+  resolved "https://codeload.github.com/OnsenUI/custom-elements/tar.gz/bf2f0a4aee940223cfa7eb18e29bd1da51edb90f"
 
 abbrev@1:
   version "1.1.0"
@@ -1320,6 +1320,10 @@ dashdash@^1.12.0:
 date-now@^0.1.4:
   version "0.1.4"
   resolved "https://registry.yarnpkg.com/date-now/-/date-now-0.1.4.tgz#eaf439fd4d4848ad74e5cc7dbef200672b9e345b"
+
+dateformat@^2.0.0:
+  version "2.0.0"
+  resolved "https://registry.yarnpkg.com/dateformat/-/dateformat-2.0.0.tgz#2743e3abb5c3fc2462e527dca445e04e9f4dee17"
 
 de-indent@^1.0.2:
   version "1.0.2"

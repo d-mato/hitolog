@@ -4,7 +4,7 @@ class Person < ApplicationRecord
   belongs_to :user
   has_many :group_people, dependent: :destroy
   has_many :groups, through: :group_people
-  has_many :impressions
+  has_many :impressions, -> { order(date: :asc) }
 
   validates :name, presence: true
 end

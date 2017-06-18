@@ -47,19 +47,23 @@
       </form>
 
     </div>
-    <ul>
+
+    <h3>Impressions</h3>
+    <ul class="list-unstyled">
       <li v-for="impression in person.impressions" :key="impression.id" @click="delete_impression(impression)">
-        {{ impression.date }}
+        <label>[{{ impression.date }}]</label>
         {{ impression.comment }}
       </li>
     </ul>
 
     <v-ons-list>
+      <v-ons-list-header>Date</v-ons-list-header>
       <v-ons-list-item>
-        <input type="date" placeholder="Date" v-model="new_impression.date" class="text-input" />
+        <input type="date" v-model="new_impression.date" class="text-input" />
       </v-ons-list-item>
+      <v-ons-list-header>Comment</v-ons-list-header>
       <v-ons-list-item>
-        <textarea placeholder="Comment" v-model="new_impression.comment" class="textarea" rows="3" /></textarea>
+        <textarea v-model="new_impression.comment" class="textarea" rows="3" /></textarea>
       </v-ons-list-item>
     </v-ons-list>
     <v-ons-button @click="add_impression">save</v-ons-button>
@@ -67,6 +71,7 @@
 </template>
 
 <script>
+import dateformat from 'dateformat'
 import axios from '../../axios'
 import ToolBar from '../toolbar'
 
@@ -79,10 +84,11 @@ export default {
       group_ids: [],
       person: {},
       groups: [],
-      new_impression: { date: new Date(), comment: '' }
+      new_impression: {}
     }
   },
   created() {
+    this.reset_new_impression()
     axios.get('/api/groups')
       .then((res) => {
         this.groups = res.data
@@ -138,8 +144,8 @@ export default {
     add_impression(e) {
       axios.post(`/api/people/${this.options.person_id}/impressions`, this.new_impression)
         .then((res) => {
-          this.new_impression = { date: new Date(), comment: '' }
-          this.person.impressions.push(res.data)
+          this.reset_new_impression()
+          this.person.impressions = res.data
           this.$ons.notification.toast('Created!', { timeout: 1500 })
         })
         .catch((err) => {
@@ -153,20 +159,25 @@ export default {
         .then((res) => {
           const index = this.person.impressions.indexOf(impression)
           this.person.impressions.splice(index, 1)
-          this.person.impressions.$remove(impression)
           this.$ons.notification.toast('Deleted!', { timeout: 1500 })
         })
         .catch((err) => {
           this.$ons.notification.toast('Error!', { timeout: 1500 })
           console.log(err)
         })
+    },
+    reset_new_impression() {
+      this.new_impression = {
+        date: dateformat(new Date(), 'yyyy-mm-dd'),
+        comment: ''
+      }
     }
   }
 }
 </script>
 
 <style scoped>
-  textarea {
-    width: 100%;
-  }
+textarea {
+  width: 100%;
+}
 </style>

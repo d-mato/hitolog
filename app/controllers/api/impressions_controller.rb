@@ -6,8 +6,7 @@ class Api::ImpressionsController < ApplicationController
     person = current_user.people.find(params[:person_id])
     @impression = person.impressions.build(impression_params)
     if @impression.save
-      render json: @impression
-      # render action: :show
+      render json: person.impressions
     else
       head :bad_request
     end
