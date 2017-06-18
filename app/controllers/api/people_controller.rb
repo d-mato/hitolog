@@ -10,9 +10,9 @@ class Api::PeopleController < ApplicationController
   end
 
   def create
-    person = current_user.people.build(person_params)
-    if person.save
-      render json: person
+    @person = current_user.people.build(person_params)
+    if @person.save
+      render action: :show
     else
       head :bad_request
     end
