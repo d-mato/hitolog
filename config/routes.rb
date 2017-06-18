@@ -5,6 +5,8 @@ Rails.application.routes.draw do
 
   namespace :api, format: 'json' do
     resources :groups
-    resources :people
+    resources :people, shallow: true do
+      resources :impressions, only: [:create, :update, :destroy]
+    end
   end
 end

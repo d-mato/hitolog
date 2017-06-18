@@ -47,8 +47,16 @@
       </form>
 
     </div>
+    <ul>
+      <li v-for="impression in person.impressions" :key="impression.id">
+        {{ impression.date }}
+        {{ impression.comment }}
+      </li>
+    </ul>
 
-    <p>{{ message }}</p>
+    <input type="date" placeholder="Date" v-model="new_impression.date" />
+    <input placeholder="Comment" v-model="new_impression.comment" />
+    <button class="btn btn-primary" @click="add_impression">save</button>
   </v-ons-page>
 </template>
 
@@ -65,7 +73,7 @@ export default {
       group_ids: [],
       person: {},
       groups: [],
-      message: ''
+      new_impression: {}
     }
   },
   created() {
@@ -120,6 +128,18 @@ export default {
             console.log(err)
           })
       }
+    },
+    add_impression(e) {
+      axios.post(`/api/people/${this.options.person_id}/impressions`, this.new_impression)
+        .then((res) => {
+          this.new_impression = {}
+          this.person.impressions.push(res.data)
+          this.$ons.notification.toast('Created!', { timeout: 1500 })
+        })
+        .catch((err) => {
+          this.$ons.notification.toast('Error!', { timeout: 1500 })
+          console.log(err)
+        })
     }
   }
 }
