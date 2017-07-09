@@ -3,7 +3,7 @@ class Api::PeopleController < ApplicationController
   before_action :set_person, only: [:show, :update, :destroy]
 
   def index
-    @people = current_user.people.includes(:groups)
+    @people = current_user.people.includes(:groups).order(created_at: :asc)
   end
 
   def show
