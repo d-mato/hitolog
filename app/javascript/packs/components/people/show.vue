@@ -52,7 +52,9 @@
     <ul class="list-unstyled">
       <li v-for="impression in person.impressions" :key="impression.id" @click="delete_impression(impression)">
         <label>[{{ impression.date }}]</label>
-        {{ impression.comment }}
+        <pre>
+          {{ impression.comment }}
+        </pre>
       </li>
     </ul>
 
