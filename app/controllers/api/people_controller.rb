@@ -3,7 +3,7 @@ class Api::PeopleController < ApplicationController
   before_action :set_person, only: [:show, :update, :destroy]
 
   def index
-    @people = current_user.people.includes(:groups).order(created_at: :asc)
+    @people = current_user.people.eager_load(:groups, :impressions).order(Impression.arel_table[:updated_at].desc)
   end
 
   def show
