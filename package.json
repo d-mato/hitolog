@@ -22,7 +22,7 @@
     "postcss-smart-import": "^0.7.0",
     "precss": "^1.4.0",
     "rails-erb-loader": "^5.0.1",
-    "sass-loader": "^6.0.5",
+    "sass-loader": "^9.0.2",
     "style-loader": "^0.17.0",
     "vue": "^2.3.3",
     "vue-loader": "^12.1.0",
